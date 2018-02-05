@@ -6,6 +6,7 @@ use App\State;
 use App\Country;
 use Illuminate\Http\Request;
 use App\Validator\StateValidator;
+use App\Validator\StateUpdateValidator;
 
 class StateController extends Controller
 {

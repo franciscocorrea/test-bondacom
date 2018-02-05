@@ -6,6 +6,7 @@ use App\County;
 use App\State;
 use Illuminate\Http\Request;
 use App\Validator\CountyValidator;
+use App\Validator\CountyUpdateValidator;
 
 class CountyController extends Controller
 {
