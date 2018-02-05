@@ -30,7 +30,7 @@ class CountyController extends Controller
     {
         $state = State::where(['id' => $request->state_id])->first();
         if (!$state) {
-            return response()->json(['message' => 'The state not found'], 400);
+            return response()->json(['message' => 'The state not found'], 404);
         }
 
         County::create(['name' => $request->name, 'state_id' => $state->id]);
