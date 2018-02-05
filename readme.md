@@ -72,10 +72,21 @@
 
 - parametros.
     - name
-    - state_id = id del estado o provincia donde pertenece el condado/departamento/partido
+    - zip_code = codigo postal
+    - state_id = id del estado o provincia donde pertenece el condado/departamento/partido opcional
+    - county_id = id del condado/departamento/partido opcional
 
 > POST /states .
 > GET /states .
 > GET /states/{state}.
 > PUT /states/{state}.
 > DELETE /states/{state}
+
+## Endpoints Localizacion
+
+- Endpoint para obtener por medio de un pais toda sus provincias o estados, condados/partido/departamentos y sus ciudades.
+
+- parametros.
+    - country => ARG, USA, SPA, URG
+   
+> GET location/{country} .
