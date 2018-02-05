@@ -2,13 +2,12 @@
 
 namespace App\Validators;
 
-class CountryUpdateValidator extends Validator
+class CityValidator extends Validator
 {
     /**
      * Set Rules Validation
      */
     public static $rules = array(
-        'name'     => 'required|string',
-        'acronym'    => 'string',
+        'name'     => 'required|string'
     );
 }

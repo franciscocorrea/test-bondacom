@@ -3,22 +3,21 @@
 namespace App\Validators;
 
 abstract class Validator {
-
     /**
-     * 
+     * string 
      */
     protected $input;
     /**
-     * 
+     * string
      */
     public $messages;
     /**
-     * 
+     * array
      */
     public static $rules;
 
     /**
-     * 
+     * @param string input
      */
     public function __construct($input)
     {
@@ -26,7 +25,7 @@ abstract class Validator {
     }
 
     /**
-     * 
+     * Get fails in validator.
      */
     public function fails()
     {
@@ -42,7 +41,7 @@ abstract class Validator {
     }
 
     /**
-     * 
+     * Get Messages.
      */
     public function messages()
     {
