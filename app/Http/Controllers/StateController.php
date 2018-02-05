@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\State;
 use App\Country;
 use Illuminate\Http\Request;
+use App\Validator\StateValidator;
 
 class StateController extends Controller
 {
@@ -28,6 +29,10 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = new StateValidator($request->all());
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 403);
+        }
         $country = Country::where(['acronym' => $request->acronym_country])->first();
         if (!$country) {
             return response()->json(['message' => 'The country not found'], 400);
@@ -66,13 +71,17 @@ class StateController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $validator = new StateUpdateValidator($request->all());
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->messages()], 403);
+            }
             $state = State::findOrFail($id);
 
             $state->name = $request->name;
             if ($request->acronym_country) {
                 $country = Country::where(['acronym' => $request->acronym_country])->first();
                 if (!$country) {
-                    return response()->json(['message' => 'The country not found'], 400);
+                    return response()->json(['message' => 'The country not found'], 404);
                 }
                 $state->country_id = $country->country_id;
             }

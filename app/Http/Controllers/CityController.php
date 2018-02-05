@@ -6,6 +6,8 @@ use App\County;
 use App\State;
 use App\City;
 use Illuminate\Http\Request;
+use App\Validator\CityValidator;
+use App\Validator\CityUpdateValidator;
 
 class CityController extends Controller
 {
@@ -29,6 +31,11 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = new CityValidator($request->all());
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 403);
+        }
+
         $data = ['name' => $request->name, 'zip_code' => $request->zip_code];
         if ($request->state_id) {
             $state = State::where(['id' => $request->state_id])->first();
@@ -87,6 +94,11 @@ class CityController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $validator = new CityUpdateValidator($request->all());
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->messages()], 403);
+            }
+
             $city = City::findOrFail($id);
 
             $city->name = $request->name;

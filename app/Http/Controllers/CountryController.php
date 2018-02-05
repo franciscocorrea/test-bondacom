@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Country;
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use App\Validators\CountryValidator;
 
 class CountryController extends Controller
 {
@@ -28,6 +29,10 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = new CountryValidator($request->all());
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 403);
+        }
         $country = Country::where(['acronym' => $request->acronym])->first();
         if ($country) {
             return response()->json(['message' => 'Resource is exist'], 500);
@@ -64,6 +69,12 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         try {
+
+            $validator = new CountryUpdateValidator($request->all());
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->messages()], 403);
+            }
+
             $country = Country::findOrFail($id);
 
             $country->name = $request->name;

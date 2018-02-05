@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\County;
 use App\State;
 use Illuminate\Http\Request;
+use App\Validator\CountyValidator;
 
 class CountyController extends Controller
 {
@@ -28,6 +29,10 @@ class CountyController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = new CountyValidator($request->all());
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->messages()], 403);
+        }
         $state = State::where(['id' => $request->state_id])->first();
         if (!$state) {
             return response()->json(['message' => 'The state not found'], 404);
@@ -66,6 +71,10 @@ class CountyController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $validator = new CountyUpdateValidator($request->all());
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->messages()], 403);
+            }
             $county = County::findOrFail($id);
 
             $county->name = $request->name;
