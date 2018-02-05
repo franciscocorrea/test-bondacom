@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'test api Rest bondacom';
 });
 
+//Localization route
+Route::get('location/{country}', 'LocationController@getLocations');
+//Simple routes
 Route::resource('countries', 'CountryController');
 Route::resource('states', 'StateController');
 Route::resource('counties', 'CountyController');
