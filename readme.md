@@ -1,6 +1,6 @@
-#Test api restFul bondacom
+# Test api restFul bondacom
 
-##pasos para la instalación del proyecto
+## pasos para la instalación del proyecto
 
 - Luego de clonar el proyecto.
 	> $composer install.
@@ -17,8 +17,8 @@
    > $php artisan serve.
 
 
-##Endpoints del API
+# Endpoints del API
 
 - Para observar las rutas del api se puede correr el siguiente comando.
 
- > $php artisan route:list.
+   > $php artisan route:list.
