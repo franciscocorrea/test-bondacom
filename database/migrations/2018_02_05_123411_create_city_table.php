@@ -17,10 +17,10 @@ class CreateCityTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('zip_code');
-            $table->integer('county_id')->unsigned();
-            $table->foreign('county_id')->references('id')->on('counties');
-            $table->integer('state_id')->unsigned();
-            $table->foreign('state_id')->references('id')->on('states');
+            $table->integer('county_id')->unsigned()->nullable();
+            $table->foreign('county_id')->references('id')->on('counties')->onDelete('cascade');
+            $table->integer('state_id')->unsigned()->nullable();
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->timestamps();
         });
     }
